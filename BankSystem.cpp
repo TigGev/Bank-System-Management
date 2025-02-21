@@ -41,3 +41,33 @@ BankSystem::~BankSystem() {
         ptr = nullptr;
     }
 }
+
+BankSystem::BankSystem(const BankSystem& other) {
+    for (const BankAccount* acc : other.accounts) {
+        BankAccount* newAcc = new BankAccount(*acc);
+        accounts.push_back(newAcc);
+    }
+}
+
+BankSystem::BankSystem(BankSystem&& other) : accounts(std::move(other.accounts)) {}
+
+BankSystem& BankSystem::operator= (BankSystem& other) {
+    for (const BankAccount* acc : other.accounts) {
+        accounts.push_back(new BankAccount(*acc));
+    }
+    return *this;
+}
+
+BankSystem::~BankSystem() {
+    for (BankAccount* acc : accounts) {
+        delete acc;
+    }
+}
+
+BankSystem& BankSystem::operator= (BankSystem&& other) {
+    for (BankAccount* acc : other.accounts) {
+        accounts.push_back(std::move(acc));
+    }
+    return *this;
+}
+

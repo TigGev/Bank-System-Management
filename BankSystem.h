@@ -7,8 +7,12 @@
 class BankSystem {
         std::vector<BankAccount*> accounts;
     public:
-        BankSystem() {};
-       ~BankSystem();
+        BankSystem() = default; // ctor
+       ~BankSystem(); // dtor
+        BankSystem(const BankSystem& other); //copy ctor
+        BankSystem(BankSystem&&); // move ctor
+        BankSystem& operator= (BankSystem& other); //assign
+        BankSystem& operator= (BankSystem&&); //move
     public:
         void addAccount(const std::string& name, int accountNumber, double initialBalance);
         BankAccount* findAccount(int accountNumber);
